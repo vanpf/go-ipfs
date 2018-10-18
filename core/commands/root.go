@@ -128,7 +128,7 @@ var rootSubcommands = map[string]*cmds.Command{
 	"id":        lgc.NewCommand(IDCmd),
 	"key":       KeyCmd,
 	"log":       lgc.NewCommand(LogCmd),
-	"ls":        lgc.NewCommand(LsCmd),
+	"ls":        LsCmd,
 	"mount":     lgc.NewCommand(MountCmd),
 	"name":      name.NameCmd,
 	"object":    ocmd.ObjectCmd,
@@ -165,7 +165,7 @@ var rootROSubcommands = map[string]*cmds.Command{
 	},
 	"get": GetCmd,
 	"dns": lgc.NewCommand(DNSCmd),
-	"ls":  lgc.NewCommand(LsCmd),
+	"ls":  LsCmd,
 	"name": &cmds.Command{
 		Subcommands: map[string]*cmds.Command{
 			"resolve": name.IpnsCmd,
