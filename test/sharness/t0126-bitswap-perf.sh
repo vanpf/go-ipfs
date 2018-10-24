@@ -9,6 +9,19 @@ timing_file="/tmp/`basename "$0"`-timings.txt"
 
 . lib/test-lib.sh
 
+# setup 5 node cluster testbed
+
+# add 10MB file to 0
+# time get with 1
+# time get with 2
+# time get with 3
+# time get with 4
+
+# Cumulative blocks send/received/dupes
+
+# Parameterize nodes
+# Parameterize file size
+
 time_expect_success() {
     echo -n "`basename "$0"`:$1: " >> $timing_file
     { time {
@@ -22,58 +35,14 @@ check_file_fetch() {
   fhash=$2
   fname=$3
 
-   time_expect_success "can fetch file" '
-    ipfsi $node cat $fhash > fetch_out
+   time_expect_success "node$node can fetch file" '
+    ipfsi $node cat $fhash > fetch_out$node
   '
 
   test_expect_success "file looks good" '
-    test_cmp $fname fetch_out
+    test_cmp $fname fetch_out$node
   '
 }
-
-check_dir_fetch() {
-  node=$1
-  ref=$2
-
-  test_expect_success "node can fetch all refs for dir" '
-    ipfsi $node refs -r $ref > /dev/null
-  '
-}
-
-run_single_file_test() {
-  test_expect_success "add a file on node1" '
-    random 10000000 > filea &&
-    FILEA_HASH=$(ipfsi 1 add -q filea)
-  '
-
-  check_file_fetch 0 $FILEA_HASH filea
-  check_file_fetch 1 $FILEA_HASH filea
-  check_file_fetch 2 $FILEA_HASH filea
-}
-
-run_big_single_file_test() {
-  test_expect_success "add a file on node1" '
-    random 100000000 > filea &&
-    FILEA_HASH=$(ipfsi 1 add -q filea)
-  '
-
-  check_file_fetch 0 $FILEA_HASH filea
-}
-
-run_advanced_test() {
-  startup_cluster 5 "$@"
-
-  test_expect_success "clean repo before test" '
-    ipfsi 0 repo gc > /dev/null &&
-    ipfsi 1 repo gc > /dev/null &&
-    ipfsi 2 repo gc > /dev/null &&
-    ipfsi 3 repo gc > /dev/null &&
-    ipfsi 4 repo gc > /dev/null
-  '
-
-  run_single_file_test
-  run_big_single_file_test
-
 
 #  test_expect_success "node0 data transferred looks correct" '
 #    ipfsi 0 bitswap stat > stat0 &&
@@ -91,18 +60,45 @@ run_advanced_test() {
 #    grep "data sent: 1000256" stat1 > /dev/null
 #  '
 
-  test_expect_success "shut down nodes" '
-    iptb stop && iptb_wait_stop
-  '
-}
+node_count=7
 
 test_expect_success "set up tcp testbed" '
-  iptb init -n 5 -p 0 -f --bootstrap=none
+  iptb init -n $node_count -p 0 -f --bootstrap=none
 '
 
-# test default configuration
-echo "Running advanced tests with default config"
-run_advanced_test
+startup_cluster $node_count
+
+# Clean out all the repos
+for i in $(test_seq 0 $(expr $node_count - 1))
+do
+  test_expect_success "clean node $i repo before test" '
+    ipfsi $i repo gc > /dev/null
+  '
+done
+
+# Create a bit file
+test_expect_success "add a file on node0" '
+  random 50000000 > filea &&
+  FILEA_HASH=$(ipfsi 0 add -q filea)
+'
+
+# Fetch the file with each node in succession (time each)
+for i in $(test_seq 1 $(expr $node_count - 1))
+do
+  check_file_fetch $i $FILEA_HASH filea
+  sleep 2
+done
+
+for i in $(test_seq 0 $(expr $node_count - 1))
+do
+  echo "node $i:" >> $timing_file
+  ipfsi $i bitswap stat >> $timing_file
+done
+
+# shutdown
+test_expect_success "shut down nodes" '
+  iptb stop && iptb_wait_stop
+'
 
 test_done
 
