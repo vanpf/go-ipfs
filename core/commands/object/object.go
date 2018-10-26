@@ -446,7 +446,7 @@ And then run:
 			return
 		}
 
-		input, err := req.Files().NextFile()
+		_, input, err := req.Files().NextFile()
 		if err != nil && err != io.EOF {
 			res.SetError(err, cmdkit.ErrNormal)
 			return
