@@ -35,9 +35,6 @@ import (
 	logging "gx/ipfs/QmZChCsSt8DctjceaL56Eibc29CVQq4dGKRXC5JRZ6Ppae/go-log"
 	manet "gx/ipfs/Qmaabb1tJZ2CX5cp6MuuiGgns71NYoxdgQP6Xdid1dVceC/go-multiaddr-net"
 	madns "gx/ipfs/QmeHJXPqCNzSFbVkYM1uQLuM2L5FyJB9zukQ7EeqRP8ZC9/go-multiaddr-dns"
-	"gx/ipfs/QmeLH4FCZJ2LXwoBYkLdcA2GaaNFTntHjVezH5ks3AQUUM/go-ipfs-cmds"
-	"gx/ipfs/QmeLH4FCZJ2LXwoBYkLdcA2GaaNFTntHjVezH5ks3AQUUM/go-ipfs-cmds/cli"
-	"gx/ipfs/QmeLH4FCZJ2LXwoBYkLdcA2GaaNFTntHjVezH5ks3AQUUM/go-ipfs-cmds/http"
 )
 
 // log is the command logger

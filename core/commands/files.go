@@ -28,7 +28,6 @@ import (
 	logging "gx/ipfs/QmZChCsSt8DctjceaL56Eibc29CVQq4dGKRXC5JRZ6Ppae/go-log"
 	ipld "gx/ipfs/QmdDXJs4axxefSPgK6Y1QhpJWKuDPnGJiqgq4uncb4rFHL/go-ipld-format"
 	cmdkit "gx/ipfs/Qmde5VP1qUkyQXKCfmEUA7bP64V2HAptbJ7phuPp7jXWwg/go-ipfs-cmdkit"
-	cmds "gx/ipfs/QmeLH4FCZJ2LXwoBYkLdcA2GaaNFTntHjVezH5ks3AQUUM/go-ipfs-cmds"
 	mfs "gx/ipfs/QmehmU3ZZQbpAUuaMJUjHuzQ1S3QLtyxXm34xVjrx46TQR/go-mfs"
 	ft "gx/ipfs/QmfNLMuGmRnunxgSAJfjHRFLkXoRGvV7MSQP9w9D8difaD/go-unixfs"
 )

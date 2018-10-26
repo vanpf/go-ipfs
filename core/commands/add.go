@@ -12,8 +12,8 @@ import (
 
 	mh "gx/ipfs/QmPnFwZ2JXKnXgMw8CdBPxn7FWh6LLdjUjxV1fKHuJnkr8/go-multihash"
 	"gx/ipfs/QmPtj12fdwuAqj9sBSTNUxBNu8kCGNp8b3o8yUzMm5GHpq/pb"
+	"gx/ipfs/QmSjABV1p4hT859e2TiJw7SLzuaTrRb7dnsLTa8iKBhJSC/go-ipfs-cmds"
 	"gx/ipfs/Qmde5VP1qUkyQXKCfmEUA7bP64V2HAptbJ7phuPp7jXWwg/go-ipfs-cmdkit"
-	"gx/ipfs/QmeLH4FCZJ2LXwoBYkLdcA2GaaNFTntHjVezH5ks3AQUUM/go-ipfs-cmds"
 )
 
 // ErrDepthLimitExceeded indicates that the max depth has been exceeded.

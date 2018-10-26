@@ -29,7 +29,6 @@ import (
 	"gx/ipfs/Qmaabb1tJZ2CX5cp6MuuiGgns71NYoxdgQP6Xdid1dVceC/go-multiaddr-net"
 	mprome "gx/ipfs/QmbqQP7GMwJCePfEvbMSZmyPifAz1kKZifo8vwVnVHt1wL/go-metrics-prometheus"
 	"gx/ipfs/Qmde5VP1qUkyQXKCfmEUA7bP64V2HAptbJ7phuPp7jXWwg/go-ipfs-cmdkit"
-	cmds "gx/ipfs/QmeLH4FCZJ2LXwoBYkLdcA2GaaNFTntHjVezH5ks3AQUUM/go-ipfs-cmds"
 )
 
 const (
